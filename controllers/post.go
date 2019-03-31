@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	services "github.com/bennyzanuar/goblog/implements"
+	services "github.com/bennyzanuar/goblog/services/implements"
 	"github.com/sanity-io/litter"
 )
 
