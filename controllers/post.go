@@ -1,12 +1,16 @@
 package controllers
 
 import (
+	"fmt"
 	"net/http"
 
-	log "github.com/sirupsen/logrus"
+	services "github.com/bennyzanuar/goblog/implements"
+	"github.com/sanity-io/litter"
 )
 
 // GetAllPost from service package
 func GetAllPost(w http.ResponseWriter, r *http.Request) {
-	log.Info("route get")
+	data := services.FindAll()
+	fmt.Printf("%+v", data)
+	litter.Dump(data)
 }
