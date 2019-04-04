@@ -5,6 +5,22 @@ import (
 	"net/http"
 )
 
+type SuccessResponse struct {
+	Success bool        `json:"success" example:"true"`
+	Params  interface{} `json:"params,omitempty" `
+	Data    interface{} `json:"data,omitempty" `
+}
+
+type ErrorResponse struct {
+	Success bool      `json:"success" example:"false"`
+	Error   HttpError `json:"error,omitempty"`
+}
+
+type HttpError struct {
+	Code    uint32 `json:"code" example:"40001"`
+	Message string `json:"message" example:"status bad request"`
+}
+
 type Result struct {
 	Status  bool        `json:"status"`
 	Message string      `json:"message"`
@@ -22,7 +38,14 @@ func Message(status bool, message string, data interface{}) *Result {
 }
 
 // Respond - send a JSON response
-func Respond(w http.ResponseWriter, res interface{}) {
+func Respond(w http.ResponseWriter, data interface{}, params interface{}) {
 	w.Header().Set("Content-Type", "application/json")
-	json.NewEncoder(w).Encode(res)
+
+	resp := SuccessResponse{
+		Success: true,
+		Params:  params,
+		Data:    data,
+	}
+
+	json.NewEncoder(w).Encode(resp)
 }

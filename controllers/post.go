@@ -9,6 +9,6 @@ import (
 
 // GetAllPost from service package
 func GetAllPost(w http.ResponseWriter, r *http.Request) {
-	data := srv.FindAllPost(1, 1)
-	u.Respond(w, data.Result)
+	data := srv.FindAllPost(1, 10)
+	u.Respond(w, data.Result, data.ParamsOutput)
 }
